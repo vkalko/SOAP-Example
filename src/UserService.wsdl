@@ -1,0 +1,70 @@
+<definitions name="UserService" targetNamespace="http://localhost:8080/ws/users"
+             xmlns="http://schemas.xmlsoap.org/wsdl/"
+             xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+             xmlns:tns="http://localhost:8080/ws/users"
+             xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+
+    <types>
+        <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                   targetNamespace="http://localhost:8080/ws/users"
+                   xmlns:us="http://localhost:8080/ws/users"
+                   elementFormDefault="qualified">
+
+            <xs:complexType name="UserType">
+                <xs:sequence>
+                    <xs:element name="userId" type="xs:int"/>
+                    <xs:element name="userFirstName" type="xs:string"/>
+                    <xs:element name="userLastName" type="xs:string"/>
+                    <xs:element name="userTaxNumber" type="xs:string"/>
+                </xs:sequence>
+            </xs:complexType>
+
+            <xs:element name="getUserInfoRequest">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="userId" type="xs:int"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+
+            <xs:element name="getUserInfoResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="user" type="us:UserType"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+
+        </xs:schema>
+    </types>
+    
+    <message name="getUserRequest">
+        <part name="userId" type="xsd:int" />
+    </message>
+
+    <message name="getUserResponse">
+        <part name="user" type="tns:user" />
+    </message>
+    
+    <portType name="GetUser_Port">
+        <operation name="getUserById">
+            <input message="getUserRequest" />
+            <output message="getUserResponse" />
+        </operation>
+    </portType>
+    
+    <binding name="GetUser_Binding" type="tns:GetUser_Port">
+        <soap:binding transport="http://schemas.xmlsoap.org/soap/http"/>
+        <operation name="getUserById">
+            <soap:operation soapAction="http://localhost:8080/ws/users" />
+            <input><soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" use="encoded" /></input>
+            <output><soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" use="encoded" /></output>
+        </operation>
+    </binding>
+    <service name="UsersInfoService">
+        <port name="GetUser_Port" binding="tns:GetUser_Binding">
+            <soap:address location="http://localhost:8080/ws/users" />
+        </port>
+    </service>
+
+</definitions>

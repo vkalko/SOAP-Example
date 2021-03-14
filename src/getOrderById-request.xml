@@ -1,0 +1,9 @@
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/"
+                  xmlns:ons="http://localhost:8080/ws/orders">
+    <soapenv:Header/>
+    <soapenv:Body>
+        <ons:getOrderInfoRequest>
+            <ons:orderId>1</ons:orderId>
+        </ons:getOrderInfoRequest>
+    </soapenv:Body>
+</soapenv:Envelope>

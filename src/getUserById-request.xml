@@ -1,0 +1,9 @@
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/"
+                  xmlns:gs="http://localhost:8080/ws/users">
+    <soapenv:Header/>
+    <soapenv:Body>
+        <gs:getUserInfoRequest>
+            <gs:userId>1</gs:userId>
+        </gs:getUserInfoRequest>
+    </soapenv:Body>
+</soapenv:Envelope>

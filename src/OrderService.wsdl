@@ -1,0 +1,66 @@
+<definitions name="OrderService" targetNamespace="http://localhost:8080/ws/orders"
+             xmlns="http://schemas.xmlsoap.org/wsdl/"
+             xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+             xmlns:ons="http://localhost:8080/ws/orders"
+             xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+
+    <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+               xmlns:tns="http://localhost:8080/ws/orders"
+               targetNamespace="http://localhost:8080/ws/orders"
+               elementFormDefault="qualified">
+
+        <xs:element name="getOrderInfoRequest">
+            <xs:complexType>
+                <xs:sequence>
+                    <xs:element name="orderId" type="xs:int"/>
+                </xs:sequence>
+            </xs:complexType>
+        </xs:element>
+
+        <xs:element name="getOrderInfoResponse">
+            <xs:complexType>
+                <xs:sequence>
+                    <xs:element name="order" type="tns:OrderType"/>
+                </xs:sequence>
+            </xs:complexType>
+        </xs:element>
+
+        <xs:complexType name="OrderType">
+            <xs:sequence>
+                <xs:element name="orderId" type="xs:int"/>
+                <xs:element name="orderDescription" type="xs:string"/>
+                <xs:element name="orderStatus" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:schema>
+
+    <message name="getOrderRequest">
+        <part name="id" type="xsd:int" />
+    </message>
+
+    <message name="getOrderResponse">
+        <part name="order" type="ons:order" />
+    </message>
+
+    <portType name="GetOrder_Port">
+        <operation name="getOrderById">
+            <input message="getOrderRequest" />
+            <output message="getOrderResponse" />
+        </operation>
+    </portType>
+
+    <binding name="GetOrder_Binding" type="ons:GetOrder_Port">
+        <soap:binding transport="http://schemas.xmlsoap.org/soap/http"/>
+        <operation name="getOrderById">
+            <soap:operation soapAction="http://localhost:8080/ws/orders" />
+            <input><soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" use="encoded" /></input>
+            <output><soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" use="encoded" /></output>
+        </operation>
+    </binding>
+    <service name="OrdersInfoService">
+        <port name="GetOrders_Port" binding="ons:GetOrder_Binding">
+            <soap:address location="http://localhost:8080/ws/orders" />
+        </port>
+    </service>
+
+</definitions>
