@@ -28,7 +28,7 @@ public class WebServiceConfig extends WsConfigurerAdapter {
     public DefaultWsdl11Definition defaultWsdl11Definition(XsdSchema userSchema) {
         DefaultWsdl11Definition wsdl11Definition = new DefaultWsdl11Definition();
         wsdl11Definition.setPortTypeName("GetUser_Port");
-        wsdl11Definition.setLocationUri("/users");
+        wsdl11Definition.setLocationUri("/ws");
         wsdl11Definition.setTargetNamespace("http://localhost:8080/ws/users");
         wsdl11Definition.setSchema(userSchema);
         return wsdl11Definition;
@@ -38,7 +38,7 @@ public class WebServiceConfig extends WsConfigurerAdapter {
     public DefaultWsdl11Definition orderWsdl11Definition(XsdSchema orderSchema) {
         DefaultWsdl11Definition wsdl11Definition = new DefaultWsdl11Definition();
         wsdl11Definition.setPortTypeName("GetOrder_Port");
-        wsdl11Definition.setLocationUri("/orders");
+        wsdl11Definition.setLocationUri("/ws");
         wsdl11Definition.setTargetNamespace("http://localhost:8080/ws/orders");
         wsdl11Definition.setSchema(orderSchema);
         return wsdl11Definition;
